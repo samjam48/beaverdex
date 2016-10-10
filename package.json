@@ -1,0 +1,23 @@
+{
+  "name": "zellapp",
+  "version": "1.0.0",
+  "description": "learning node",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "materialize": "^1.0.0",
+    "mongodb": "^2.2.10",
+    "nodemon": "^1.10.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
+  }
+}
