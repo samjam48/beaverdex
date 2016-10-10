@@ -7,8 +7,8 @@ const ID = require('mongodb').ObjectID
 
 var url = 'mongodb://localhost:27017/myproject'; // Connection URL
 var db
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, database) {
+
+MongoClient.connect(url, function(err, database) {  // Use connect method to connect to the server
   db = database
   assert.equal(null, err);
   console.log("Connected successfully to db");
@@ -23,7 +23,8 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 
-app.get('/', (req,res) => {
+// basic info
+app.get('/', (req,res) => {  // render home page with list of beavers
   db.collection('beavers').find().toArray((err, result) => {  // get our cursor form db and turn into a nice array of objects
     if (err) return console.log(err)
     res.render('index.ejs', {beavers: result});   // renders index.ejs onto the page
@@ -32,7 +33,19 @@ app.get('/', (req,res) => {
   console.log('home page load');
 });
 
-app.get('/create', (req, res) => {
+app.get('/beaver/:id', (req, res) => {  // render beaver info
+  var id = require('mongodb').ObjectID(req.params.id);
+  db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
+    if (err) return console.log(err)
+    res.render('details.ejs', {beaver: result});   // renders user onto the page
+    console.log({beaver: result})
+  })
+  console.log('user page load');
+})
+
+
+// creating
+app.get('/create', (req, res) => { // render create form
   console.log('rendering create form')
   res.render('create.ejs')
 })
@@ -43,27 +56,20 @@ app.post('/create', (req, res) => {  // post new beaver info to our db
     console.log('Beaver saved to database')
   })
   var log = {name: req.body.name,
-             log0: {location: req.body.location,
-                        date: req.body.birthdate} }
-  db.collection('log').save(log, (err, result) =>{
+             logger: [{location: req.body.location,
+                        date: req.body.birthdate,
+                        health: req.body.health}] }
+  db.collection('sightings').save(log, (err, result) =>{
     if (err) return console.log(err)
     console.log('Beaver sighting saved to log')
     res.redirect('/')
   })
 })
 
-app.get('/beaver/:id', (req, res) => {
-  var id = require('mongodb').ObjectID(req.params.id);
-  db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
-    if (err) return console.log(err)
-    res.render('details.ejs', {beaver: result});   // renders user onto the page
-    console.log({beaver: result})
-  })
-  console.log('user page load');
-})
 
-app.get('/edit/:id', (req, res) => {
-  var id = require('mongodb').ObjectID(req.params.id);
+// editing
+app.get('/edit/:id', (req, res) => {  // render edit form
+  var id = ID(req.params.id);
   db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
     if (err) return console.log(err)
     res.render('edit.ejs', {beaver: result});   // renders user onto the page
@@ -71,90 +77,18 @@ app.get('/edit/:id', (req, res) => {
   })
 })
 
-app.post('/savechanges/:id', (req, res) => {
+app.post('/savechanges/:id', (req, res) => { // save edits to beaver
   console.log('Saving Changes');
   var id = ID(req.params.id);
-  db.collection('beavers').findOne({_id: id}, function(err, beaver){
+  var obj = {name: req.body.name,
+            health: req.body.health,
+            location: req.body.location,
+            birthdate: req.body.birthdate}
+  db.collection('beavers').findOneAndUpdate({_id: id}, obj, function(err, beaver){
     if (err) console.log(err)
-    console.log(beaver);
-    beaver.name = req.body.name;
-    beaver.log[0] = [{location: req.body.location,
-                date: req.body.birthdate}];
   });
-  // console.log(beaver)
-  // db.collection('beavers').findOneAndUpdate(
-  //   {_id: id},
-  //   {$set:{
-  //    name: req.body.name
-  //    ,
-  //     log: [{location: req.body.location,
-  //               date: req.body.birthdate}]}
-  //   }}
-  //   ,
-  //   (err, result) => {
-  //     if (err) return res.send(err)
-  //   }
-  // )
   res.redirect('/beaver/' + id)
 })
-
-app.get('/logger/:id', (req, res) => {
-  var id = require('mongodb').ObjectID(req.params.id);
-  db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
-    if (err) return console.log(err)
-    res.render('logger.ejs', {beaver: result});   // renders user onto the page
-    console.log({beaver: result})
-  })
-})
-
-app.post('/logging/:id', (req, res) =>{
-  console.log('Saving new log to db')
-  var id = require('mongodb').ObjectID(req.params.id);
-  db.collection('beavers').findOneAndUpdate(
-    {_id: id},
-    {$push:{
-      log:{"location": req.body.location, "date": req.body.date}
-    }}
-    ,
-    (err, result) => {
-      if (err) return res.send(err)
-      res.redirect('/beaver/' + id)
-    }
-  );
-})
-
-app.get('/displayLog/:id', (req, res) => {
-  var id = require('mongodb').ObjectID(req.params.id);
-  db.collection('beavers').findOne({_id: id}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
-    if (err) return console.log(err)
-    res.render('displayLog.ejs', {log: result.log});   // renders user onto the page
-    console.log({log: result.log})
-  })
-})
-
-app.get('/relationships', (req, res) => {
-  db.collection('relationships').find().toArray((err, result) =>{
-    if (err) return console.log(err)
-    res.render('relationships.ejs', {relations: result})  
-  })
-})
-
-app.get('/newLove', (req, res) => {
-  console.log('rendering new love form');
-  db.collection('beavers').find().toArray((err, result) =>{
-    if (err) return console.log(err)
-    res.render('loveform.ejs', {beavers: result})
-  })
-});
-
-app.post('/newLove', (req, res) => {
-  console.log('Saving new love to database...')
-  db.collection('relationships').save(req.body, (err, result) =>{
-    if (err) return console.log(err)
-    console.log('New love saved to database')
-    res.redirect('/relationships')
-  });
-});
 
 app.get('/delete/:id', (req, res) => {  //Deleting beaver
   var id = require('mongodb').ObjectID(req.params.id);
@@ -167,6 +101,89 @@ app.get('/delete/:id', (req, res) => {  //Deleting beaver
     )
 })
 
+
+// logging
+app.get('/logger/:name', (req, res) => {  // render new sighting form
+  var _name = req.params.name;
+  db.collection('sightings').findOne({name: _name}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
+    if (err) return console.log(err)
+    res.render('logger.ejs', {log: result});   // renders user onto the page
+    console.log({log: result})
+  })
+})
+
+app.post('/logging/:name', (req, res) =>{ // submit new sighting of beaver to 'sightings' log
+  console.log('Saving new log')
+  var _name = req.params.name;
+  console.log(_name);
+  db.collection('sightings').findOneAndUpdate(
+    {name: _name},
+      {$push:
+          {logger: {"location": req.body.location, "date": req.body.date, "health": req.body.health}
+      }}
+    ,(err, result) => { if (err) return res.send(err) }
+  );
+  db.collection('beavers').findOneAndUpdate(
+    {name: _name}, 
+      {$set:
+        {health: req.body.health}
+      }
+    ,(err, result) => { if (err) return res.send(err) }
+  );
+
+  res.redirect('/displayLog/' + _name)
+})
+
+app.get('/displayLog/:name', (req, res) => { // show beaver journey log
+  var _name = req.params.name;
+  db.collection('sightings').findOne({name: _name}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
+    if (err) return console.log(err)
+    res.render('displayLog.ejs', {_logger: result.logger});   // renders user onto the page
+    console.log({_logger: result.logger})
+  })
+})
+
+app.get('/logger/:name/edit/:log', (req, res) => {  // render new sighting form
+  var _name = req.params.name;
+  var _log = req.params.log
+  db.collection('sightings').findOne({name: _name}, (err, result) => {  // get our cursor form db and turn into a nice array of objects
+    if (err) return console.log(err)
+    res.render('editLog.ejs', {log: result});   // renders user onto the page
+    console.log({log: result})
+  })
+})
+
+
+
+
+// relationships
+app.get('/relationships', (req, res) => { // show relationships
+  db.collection('relationships').find().toArray((err, result) =>{
+    if (err) return console.log(err)
+    res.render('relationships.ejs', {relations: result})  
+  })
+})
+
+app.get('/newLove', (req, res) => { // render relationship input form
+  console.log('rendering new love form');
+  db.collection('beavers').find().toArray((err, result) =>{
+    if (err) return console.log(err)
+    res.render('loveform.ejs', {beavers: result})
+  })
+});
+
+app.post('/newLove', (req, res) => { // register new relationship
+  console.log('Saving new love to database...')
+  db.collection('relationships').save(req.body, (err, result) =>{
+    if (err) return console.log(err)
+    console.log('New love saved to database')
+    res.redirect('/relationships')
+  });
+});
+
+
+
+// delete all
 app.get('/deleteRelationships', (req, res) =>{ // delete all relationship records
   db.collection("relationships").remove()
   res.redirect('/')
@@ -178,56 +195,6 @@ app.get('/deleteBeavers', (req, res) =>{  // delete all beaver records
 })
 
 
-// --------------------
+// ------------ unused code that might be useful here ---------   //
 
 
-// var beaver =  db.collection('beavers').find({_id: id})
-//   var location = beaver.location
-//   console.log(location);
-//   var date =  beaver.birthdate
-//   db.collection('beavers').findOneAndUpdate(
-//       {_id: id},
-//       {$push:{
-//         log:{"location": location, "date": date}
-//       }},
-//     (err, result) => {
-//       res.render('logger.ejs', {beaver: result});   // renders user onto the page
-//       console.log({beaver: result})
-//     })
-
-
-// app.get('/', (req, res) => {   // get initial page _ arg1 = path _ arg2 = function (takes http 'request' and 'response'
-// 	db.collection('quotes').find().toArray((err, result) => {  // get our cursor form db and turn into a nice array of objects
-//     if (err) return console.log(err)
-//     res.render('index.ejs', {quotes: result});   // renders index.ejs onto the page
-//     // res.send('<h2>'+result[0].quote+'</h2>');   // sends just the first quote to the page as H2
-//   })
-// });
-
-
-// app.post('/quotes', (req, res) => { // post form info to our db
-//   // console.log(req.body);
-//   db.collection('quotes').save(req.body, (err, result) => {
-//   	if (err) return console.log(err);
-
-//   	console.log("saved to db");
-//   	res.redirect('/');
-//   })
-// });
-
-
-// app.put('/quotes', (req, res) => {
-//   db.collection('quotes')
-//   .findOneAndUpdate({name: 'Yoda'}, {
-//     $set: {
-//       name: req.body.name,
-//       quote: req.body.quote
-//     }
-//   }, {
-//     sort: {_id: -1},
-//     upsert: true
-//   }, (err, result) => {
-//     if (err) return res.send(err)
-//     res.send(result)
-//   })
-// })
