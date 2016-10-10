@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+			<div class="row">
+				<h3>Enter some deets of your hairy beaver</h3>
+			</div>
+
+
+		<div class="row">
+			<form action="/create" method="POST">
+				<div class="row">
+					<div class="col s6"><input id=nameInput type="text" placeholder="Beaver Name" name="name"></div>
+					  <div class="input-field col s12 m6">
+					    <select name="sex">
+					      <option value="" disabled selected>Select</option>
+					      <option value="Male" class="left circle">Male</option>
+					      <option value="Female" class="left circle">Female</option>
+					    </select>
+					    <label>Beaver Sex</label>
+					  </div>
+					<div class="col s6"><input id=date type="date" placeholder="Birthdate" name="birthdate"></div>
+					<div class="col s6"><input id=addressInput type="text" placeholder="location" name="location"></div>
+				</div>
+				<button id='create' class="waves-effect waves-light btn" type="submit" style="margin-top: 30px;">Click to add profile</button>
+			</form>
+		</div>
+
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>

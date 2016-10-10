@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+			<div class="row">
+				<h3>Look at the busy beaver!</h3>
+			</div>
+
+
+			<div class="row">
+				<div id=details >
+					<ul>
+					<% for (i in log){ %>
+
+						<li>
+							<h6>location: <em><%= log[i].location %></em></h6>
+							<h6>Date: <em><%= log[i].date %></em></h6>
+							<div>
+								'<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=log[i].location %> 	" allowfullscreen></iframe>';	
+							</div>
+						</li>
+						<li><br></li>
+
+					<% } %>
+
+					</ul>
+		</div>
+			</div>
+
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+			<div class="row">
+				<h3>Update the beaver log!</h3>
+			</div>
+
+
+			<div class="row">
+				<form action="/logging/<%=beaver._id %>" method="POST">
+					<div class="col s12 m6"><input id=dateInput type="date" placeholder="date" name="date"></div>
+					<div class="col s12 m6"><input id=addressInput type="text" placeholder="location" name="location"></div>
+					<button id='create' class="waves-effect waves-light btn" type="submit" style="margin-top: 30px;">Click to make changes</button>
+				</form>
+			</div>
+
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>
