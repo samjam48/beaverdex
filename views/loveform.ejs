@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+		<h2>Exciting! A new Relationship!!</h2>
+		<form action="/newLove" method="POST">
+		
+		  <div class="input-field col s12 m6">
+		    <select id="male" name="male">
+		      <option value="" disabled selected>Select</option>
+		      <% for (i in beavers){%>
+		      	<% if (beavers[i].sex == "Male"){ %>
+		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
+		      <% } } %>
+		    </select>
+		    <label>Male Beaver</label>
+		  </div>
+
+		<br>
+
+		  <div class="input-field col s12 m6">
+		    <select id="male" name="female">
+		      <option value="" disabled selected>Select</option>
+		      <% for (i in beavers){%>
+		      	<% if (beavers[i].sex == "Female"){ %>
+		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
+		      <% } } %>
+		    </select>
+		    <label>Female Beaver</label>
+		  </div>
+		
+		<br>
+
+		  <input type="text" placeholder="Long/Short term" name="term">
+		  <button type="submit">Submit</button>
+		</form>
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+
+
+

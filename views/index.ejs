@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+
+
+		<div style="text-align:center;">
+
+			<br>
+
+			<div class="row">
+				<h3>Take a look at our catalogue of hairy beavers</h3>
+			</div>
+
+			<form action="/create" method="GET">
+				<button type="submit">Add a Beaver</button>
+			</form>
+
+			<br>
+
+			<form action="/relationships" method="GET">
+			  <button type="submit">Look at the Beaver relationships</button>
+			</form>
+
+			<br>
+
+
+			<div class="row">
+				<div id=buttons>
+					<% for( i in beavers){%>
+							<div class="col s2">
+								<a href="/beaver/<%=beavers[i]._id %>" type='submit' id=<%=i%> class="waves-effect waves-light btn col s10" style="margin-top:20px;"> <%=beavers[i].name %> </a>
+							</div>
+					<% } %>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<br>
+
+		<form action="/deleteRelationships" method="GET">
+		  <button type="submit">remove all relationships</button>
+		</form>
+
+	<br>
+		<form action="/deleteBeavers" method="GET">
+		  <button type="submit">remove all beavers</button>
+		</form>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+</body>
+</html>
+
+
+
+
+<!-- 		
+			<div class="row">
+				<div id=map> "_map_here_ideally_...?_</div>
+			</div>	
+
+			<div class="row">
+
+				<div id=details >
+					<ul>
+						<li style="opacity: 0;">
+							<h6>Name</h6>
+							<h5 id="name"></h5>
+						</li>
+						<li style="opacity: 0;">
+							<h6>Email</h6>
+							<h5 id="email"></h5>
+						</li>
+						<li style="opacity: 0;">
+							<h6>Address</h6>
+							<h5 id="address"></h5>
+						</li>
+					</ul>
+				</div>
+			</div> -->
+
