@@ -18,13 +18,18 @@
 			<div class="row">
 				<div id=details >
 					<ul>
-					<% for (i in log){ %>
+					<% for (i in _logger){ %>
 
 						<li>
-							<h6>location: <em><%= log[i].location %></em></h6>
-							<h6>Date: <em><%= log[i].date %></em></h6>
-							<div>
-								'<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=log[i].location %> 	" allowfullscreen></iframe>';	
+							<div class="col s6">
+								<h6>Health: <em><%= _logger[i].health %></em></h6>
+								<h6>Date: <em><%= _logger[i].date %></em></h6>
+								<h6>location: <em><%= _logger[i].location %></em></h6>
+								<a type="submit" class="waves-effect waves-light btn col s2" >Edit details</a>
+								<a type="submit" class="waves-effect waves-light btn col s2" >Delete Info</a>
+							</div>
+							<div class="col s6">
+								<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=_logger[i].location %> 	" allowfullscreen></iframe>
 							</div>
 						</li>
 						<li><br></li>
@@ -41,3 +46,12 @@
 <footer>
     <% include partials/footer %>
 </footer>
+
+
+<!-- 
+
+heatlh bar
+
+ <div class="progress">
+      <div class="determinate" style="width: 70%"></div>
+  </div> -->

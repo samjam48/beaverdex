@@ -17,7 +17,7 @@
 		    <select id="male" name="male">
 		      <option value="" disabled selected>Select</option>
 		      <% for (i in beavers){%>
-		      	<% if (beavers[i].sex == "Male"){ %>
+		      	<% if (beavers[i].sex == "Male" && beavers[i].health > 0){ %>
 		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
 		      <% } } %>
 		    </select>
@@ -30,7 +30,7 @@
 		    <select id="male" name="female">
 		      <option value="" disabled selected>Select</option>
 		      <% for (i in beavers){%>
-		      	<% if (beavers[i].sex == "Female"){ %>
+		      	<% if (beavers[i].sex == "Female" && beavers[i].health > 0){ %>
 		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
 		      <% } } %>
 		    </select>

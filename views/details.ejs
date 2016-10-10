@@ -24,11 +24,15 @@
 				</li>
 				<li>
 					<h6>Birthdate</h6>
-					<h5 id="birthdate"><%=beaver.log[0].date %></h5>
+					<h5 id="birthdate"><%=beaver.birthdate %></h5>
+				</li>
+				<li>
+					<h6>Health</h6>
+					<h5 id="health"><%=beaver.health %></h5>
 				</li>
 				<li>
 					<h6>Location</h6>
-					<h5 id="address"><%=beaver.log[0].location %></h5>
+					<h5 id="address"><%=beaver.location %></h5>
 				</li>
 			</ul>
 		</div>
@@ -36,14 +40,14 @@
 		<br>
 
 		<div>
-			<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=beaver.log[0].location %>" allowfullscreen></iframe>
+			<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=beaver.location %>" allowfullscreen></iframe>
 		</div>
 
 		<br>
 
 		<div id=buttons>
-			<a type="submit" href =<%= "../logger/" + beaver._id %> class="waves-effect waves-light btn col s2" >Log Sighting</a>
-			<a type="submit" href =<%= "../displayLog/" + beaver._id %> class="waves-effect waves-light btn col s2" >See logs</a>
+			<a type="submit" href =<%= "../logger/" + beaver.name %> class="waves-effect waves-light btn col s2" >Log Sighting</a>
+			<a type="submit" href =<%= "../displayLog/" + beaver.name %> class="waves-effect waves-light btn col s2" >See logs</a>
 			<a type="submit" href =<%= "../edit/" + beaver._id %> class="waves-effect waves-light btn col s2" >Edit details</a>
 			<a type="submit" href =<%= "../delete/" + beaver._id %> class="waves-effect waves-light btn col s2" >Delete Info</a>
 		</div>
