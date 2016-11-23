@@ -10,19 +10,33 @@
 </header> 
 	<div class="container">
 
-	<br>
+		<br>
 
-		<form action="/newLove" method="GET">
+		<h2>Beavers getting jiggy</h2>
+
+		<br>
+
+		<form action="/relationships/new" method="GET">
 		  <button type="submit">Add a relationship <3</button>
 		</form>
 
-		<h2>These are the relationships of our beloved beavers</h2>
 		<ul class="relations">
-		  <% for(var i=0; i<relations.length; i++) { %>
-		    <li class="relations">
-		      <h6><%= relations[i].male %> and <%= relations[i].female %> </h6>
-		      <p>Type: <em><%= relations[i].term %> </em></p>
-		    </li>
+		  <% for(var i=0; i<relationships.length; i++) { %>
+		    <li>
+		      <h6><%= relationships[i].maleName %> and <%= relationships[i].femaleName %> </h6>
+	      </li>
+	      <li>
+		      <p>Type: <em><%= relationships[i].type %> </em></p>
+	   	  </li>
+	   	  <li>
+			<a type="submit" href="/relationships/view/<%=relationships[i]._id %>"  class="waves-effect waves-light btn col s2" >View details</a>
+		  </li>
+	   	  <li>
+			<a type="submit" href="/relationships/edit/<%=relationships[i]._id %>"  class="waves-effect waves-light btn col s2" >Edit details</a>
+		  </li>
+		  <li>
+			<a type="submit" href="/relationships/delete/<%=relationships[i]._id %>" class="waves-effect waves-light btn col s2" >Delete Info</a>
+	   	  </li>
 		    <br>
 		  <% } %>
 		</ul>

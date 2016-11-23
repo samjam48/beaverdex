@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+	<br>
+		<h2>Change relationship details!!</h2>
+		
+		<form action="/relationships/edit/:id" method="POST">
+
+			<div class="col s12 m6"><input id=dateInput type="date" placeholder="Start Date" name="startDate"></div>
+
+		<br>
+
+			<div class="col s12 m6"><input id=dateInput type="date" placeholder="End Date" name="endDate"></div>
+		
+		<br>
+
+		  <div class="input-field col s12 m6">
+
+		    <select name="type">
+
+		      <option value="" disabled selected>Select</option>
+		      	<option value="short" >  Short </option>
+		      	<option value="long" >   Long </option>
+		      	<option value="booty" >  Booty-Call </option>
+
+		    </select>
+		    <label>Relationship type?</label>
+		  </div>
+		  <button type="submit">Submit</button>
+
+		</form>
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+</html>

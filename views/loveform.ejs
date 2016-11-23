@@ -11,14 +11,14 @@
 	<div class="container">
 
 		<h2>Exciting! A new Relationship!!</h2>
-		<form action="/newLove" method="POST">
+		<form action="/relationships/create" method="POST">
 		
 		  <div class="input-field col s12 m6">
-		    <select id="male" name="male">
+		    <select id="male" name="maleId">
 		      <option value="" disabled selected>Select</option>
 		      <% for (i in beavers){%>
 		      	<% if (beavers[i].sex == "Male" && beavers[i].health > 0){ %>
-		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
+		      	<option value=<%= beavers[i]._id %> >  <%= beavers[i].name %> </option>
 		      <% } } %>
 		    </select>
 		    <label>Male Beaver</label>
@@ -27,11 +27,11 @@
 		<br>
 
 		  <div class="input-field col s12 m6">
-		    <select id="male" name="female">
+		    <select id="male" name="femaleId">
 		      <option value="" disabled selected>Select</option>
 		      <% for (i in beavers){%>
 		      	<% if (beavers[i].sex == "Female" && beavers[i].health > 0){ %>
-		      	<option value=<%=beavers[i].name %> >  <%= beavers[i].name %> </option>
+		      	<option value=<%= beavers[i]._id %>  >  <%= beavers[i].name %> </option>
 		      <% } } %>
 		    </select>
 		    <label>Female Beaver</label>
@@ -39,15 +39,26 @@
 		
 		<br>
 
-		  <input type="text" placeholder="Long/Short term" name="term">
+		  <div class="input-field col s12 m6">
+		    <select  name="type">
+		      <option value="" disabled selected>Select</option>
+		      	<option value="short" >  Short </option>
+		      	<option value="long" >  Long </option>
+		      	<option value="booty" >  Booty-Call </option>
+		    </select>
+		    <label>Relationship type?</label>
+		  </div>
+
 		  <button type="submit">Submit</button>
 		</form>
 
     </div>
 
+
 <footer>
     <% include partials/footer %>
 </footer>
+</body>
 
 
 

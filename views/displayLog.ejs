@@ -18,18 +18,24 @@
 			<div class="row">
 				<div id=details >
 					<ul>
-					<% for (i in _logger){ %>
+					<% for (i in logger){ %>
 
 						<li>
 							<div class="col s6">
-								<h6>Health: <em><%= _logger[i].health %></em></h6>
-								<h6>Date: <em><%= _logger[i].date %></em></h6>
-								<h6>location: <em><%= _logger[i].location %></em></h6>
-								<a type="submit" class="waves-effect waves-light btn col s2" >Edit details</a>
-								<a type="submit" class="waves-effect waves-light btn col s2" >Delete Info</a>
+								<h5><% if(logger[i].health == 0){%> Died <% } %></h5>
+								<h5><% if(i == 0){ %> Born <% } %></h5>
+
+								<h5><% if(i>0 && logger[i].health > 0) { %> Sighting <%= i %> <%}%></h5>
+								<h6>Health: <em><%= logger[i].health %></em></h6>
+								<h6>Date: <em><%= logger[i].date %></em></h6>
+								<h6>location: <em><%= logger[i].location %></em></h6>
+
+								<a type="submit" href="/sightings/edit/<%=logger[i]._id %>"  class="waves-effect waves-light btn col s2" >Edit details</a>
+
+								<a type="submit" href="/sightings/delete/<%=logger[i]._id %>" class="waves-effect waves-light btn col s2" >Delete Info</a>
 							</div>
 							<div class="col s6">
-								<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=_logger[i].location %> 	" allowfullscreen></iframe>
+								<iframe width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB74nabs8eomrEcn7WQCjZAaJJcGUXV0bY &q=<%=logger[i].location %> 	" allowfullscreen></iframe>
 							</div>
 						</li>
 						<li><br></li>

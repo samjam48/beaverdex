@@ -26,13 +26,6 @@
 
 			<br>
 
-			<form action="/relationships" method="GET">
-			  <button type="submit">Look at the Beaver relationships</button>
-			</form>
-
-			<br>
-
-
 			<div class="row">
 				<div id=buttons>
 					<% for( i in beavers){%>
@@ -47,19 +40,10 @@
 
 	</div>
 
-	<br>
-
-		<form action="/deleteRelationships" method="GET">
-		  <button type="submit">remove all relationships</button>
-		</form>
 
 	<br>
 		<form action="/deleteBeavers" method="GET">
 		  <button type="submit">remove all beavers</button>
-		</form>
-	<br>
-		<form action="/deleteSightings" method="GET">
-		  <button type="submit">remove all sightings</button>
 		</form>
 
 <footer>
@@ -67,32 +51,3 @@
 </footer>
 </body>
 </html>
-
-
-
-
-<!-- 		
-			<div class="row">
-				<div id=map> "_map_here_ideally_...?_</div>
-			</div>	
-
-			<div class="row">
-
-				<div id=details >
-					<ul>
-						<li style="opacity: 0;">
-							<h6>Name</h6>
-							<h5 id="name"></h5>
-						</li>
-						<li style="opacity: 0;">
-							<h6>Email</h6>
-							<h5 id="email"></h5>
-						</li>
-						<li style="opacity: 0;">
-							<h6>Address</h6>
-							<h5 id="address"></h5>
-						</li>
-					</ul>
-				</div>
-			</div> -->
-

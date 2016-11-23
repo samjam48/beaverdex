@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<header>
+    <% include partials/header %>
+</header> 
+	<div class="container">
+
+	<br>
+
+		<h2>Look at these two getting it on</h2>
+		<ul class="relations">
+		    <li class="relations">
+		      <h6><%= relationship.maleName %> and <%= relationship.femaleName %> </h6>
+		      <p>Type: <em><%= relationship.type %> </em></p>
+		    </li>
+		    <br>
+	   	  <li>
+			<a type="submit" href="/relationships/edit/<%=relationship._id %>"  class="waves-effect waves-light btn col s2" >Edit details</a>
+		  </li>
+		  <li>
+			<a type="submit" href="/relationships/delete/<%=relationship._id %>" class="waves-effect waves-light btn col s2" >Delete Info</a>
+	   	  </li>
+		</ul>
+
+    </div>
+
+<footer>
+    <% include partials/footer %>
+</footer>
+</html>
